@@ -3,6 +3,19 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
+import { Navbar } from "@/components/layout/navbar";
+import { 
+  Shield, 
+  CheckCircle, 
+  Clock, 
+  Users, 
+  Award, 
+  Zap, 
+  Flame, 
+  BarChart,
+  PieChart,
+  Heart
+} from "lucide-react";
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => {
   return (
@@ -45,6 +58,11 @@ const Landing = () => {
   const benefitsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const teamRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const partnersRef = useRef<HTMLDivElement>(null);
+  const pricingRef = useRef<HTMLDivElement>(null);
+  const newsRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
   
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const featuresInView = useInView(featuresRef, { once: true, amount: 0.3 });
@@ -54,9 +72,16 @@ const Landing = () => {
   const benefitsInView = useInView(benefitsRef, { once: true, amount: 0.3 });
   const ctaInView = useInView(ctaRef, { once: true, amount: 0.3 });
   const teamInView = useInView(teamRef, { once: true, amount: 0.3 });
+  const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
+  const partnersInView = useInView(partnersRef, { once: true, amount: 0.3 });
+  const pricingInView = useInView(pricingRef, { once: true, amount: 0.3 });
+  const newsInView = useInView(newsRef, { once: true, amount: 0.3 });
+  const faqInView = useInView(faqRef, { once: true, amount: 0.3 });
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-background">
+      <Navbar />
+      
       <section 
         ref={heroRef} 
         className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden"
@@ -108,6 +133,7 @@ const Landing = () => {
 
       <section 
         ref={featuresRef} 
+        id="features"
         className="py-20 px-4"
       >
         <motion.div
@@ -125,35 +151,74 @@ const Landing = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard 
-              icon={<span>🔍</span>} 
+              icon={<Shield />} 
               title="Compliance Tracking" 
               description="Automatically track compliance status for all employees" 
             />
             <FeatureCard 
-              icon={<span>📊</span>} 
+              icon={<BarChart />} 
               title="Analytics Dashboard" 
               description="Get real-time insights into training progress and completion rates" 
             />
             <FeatureCard 
-              icon={<span>🎓</span>} 
+              icon={<Award />} 
               title="Interactive Learning" 
               description="Engage users with interactive training modules and quizzes" 
             />
             <FeatureCard 
-              icon={<span>📱</span>} 
+              icon={<Zap />} 
               title="Mobile Access" 
               description="Access training materials from any device, anywhere" 
             />
             <FeatureCard 
-              icon={<span>🔔</span>} 
+              icon={<Clock />} 
               title="Automated Reminders" 
               description="Send automatic notifications for certification renewals" 
             />
             <FeatureCard 
-              icon={<span>📝</span>} 
+              icon={<PieChart />} 
               title="Custom Reports" 
               description="Generate custom reports for audits and management reviews" 
             />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Stats Section - New Section 1 */}
+      <section 
+        ref={statsRef} 
+        className="py-20 px-4 bg-gradient-to-r from-fire-900/20 to-azure-900/20"
+      >
+        <motion.div
+          initial="hidden"
+          animate={statsInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Making Fire Safety Measurable</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              See how our platform is transforming safety training with real results
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="p-6 rounded-lg glass-card">
+              <div className="text-4xl md:text-5xl font-bold text-fire-500 mb-2">98%</div>
+              <p className="text-sm md:text-base text-muted-foreground">Compliance Rate</p>
+            </div>
+            <div className="p-6 rounded-lg glass-card">
+              <div className="text-4xl md:text-5xl font-bold text-azure-500 mb-2">75%</div>
+              <p className="text-sm md:text-base text-muted-foreground">Reduction in Admin Time</p>
+            </div>
+            <div className="p-6 rounded-lg glass-card">
+              <div className="text-4xl md:text-5xl font-bold text-fire-500 mb-2">65%</div>
+              <p className="text-sm md:text-base text-muted-foreground">Fewer Incidents</p>
+            </div>
+            <div className="p-6 rounded-lg glass-card">
+              <div className="text-4xl md:text-5xl font-bold text-azure-500 mb-2">24/7</div>
+              <p className="text-sm md:text-base text-muted-foreground">Platform Availability</p>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -197,6 +262,36 @@ const Landing = () => {
                 Monitor completion rates, certification status, and compliance in real-time
               </p>
             </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Partners Section - New Section 2 */}
+      <section 
+        ref={partnersRef} 
+        className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background"
+      >
+        <motion.div
+          initial="hidden"
+          animate={partnersInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Trusted By Industry Leaders</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Join hundreds of organizations that rely on our platform for safety training
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="flex justify-center">
+                <div className="w-24 h-24 rounded-full bg-muted/50 flex items-center justify-center text-2xl font-bold text-muted-foreground">
+                  Logo {i}
+                </div>
+              </div>
+            ))}
           </div>
         </motion.div>
       </section>
@@ -338,6 +433,147 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* Pricing Section - New Section 3 */}
+      <section 
+        ref={pricingRef} 
+        id="pricing"
+        className="py-20 px-4 bg-gradient-to-r from-fire-900/10 to-azure-900/10"
+      >
+        <motion.div
+          initial="hidden"
+          animate={pricingInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Choose the plan that works best for your organization's size and needs
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Starter Plan */}
+            <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm transition-transform hover:scale-105">
+              <div className="p-6 border-b border-white/10">
+                <h3 className="text-xl font-bold mb-2">Starter</h3>
+                <div className="flex items-baseline">
+                  <span className="text-4xl font-bold">$99</span>
+                  <span className="text-muted-foreground ml-1">/month</span>
+                </div>
+                <p className="text-muted-foreground mt-2">Perfect for small teams up to 25 users</p>
+              </div>
+              <div className="p-6">
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Essential training modules</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Basic compliance tracking</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Email notifications</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Standard reports</span>
+                  </li>
+                </ul>
+                <Button className="w-full mt-6 bg-gradient-fire hover:bg-gradient-fire/90"
+                  onClick={() => window.location.href = "/auth?mode=signup&plan=starter"}>
+                  Get Started
+                </Button>
+              </div>
+            </div>
+            
+            {/* Business Plan */}
+            <div className="rounded-xl overflow-hidden border-2 border-fire-500 bg-white/5 backdrop-blur-sm transform scale-105 shadow-lg shadow-fire-500/20">
+              <div className="p-6 border-b border-white/10 relative">
+                <div className="absolute top-0 right-0 bg-fire-500 text-white px-3 py-1 text-xs font-bold rounded-bl-lg">
+                  POPULAR
+                </div>
+                <h3 className="text-xl font-bold mb-2">Business</h3>
+                <div className="flex items-baseline">
+                  <span className="text-4xl font-bold">$249</span>
+                  <span className="text-muted-foreground ml-1">/month</span>
+                </div>
+                <p className="text-muted-foreground mt-2">For growing organizations up to 100 users</p>
+              </div>
+              <div className="p-6">
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>All Starter features</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Advanced training modules</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Custom certification paths</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Advanced analytics</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Priority support</span>
+                  </li>
+                </ul>
+                <Button className="w-full mt-6 bg-gradient-fire hover:bg-gradient-fire/90"
+                  onClick={() => window.location.href = "/auth?mode=signup&plan=business"}>
+                  Get Started
+                </Button>
+              </div>
+            </div>
+            
+            {/* Enterprise Plan */}
+            <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm transition-transform hover:scale-105">
+              <div className="p-6 border-b border-white/10">
+                <h3 className="text-xl font-bold mb-2">Enterprise</h3>
+                <div className="flex items-baseline">
+                  <span className="text-4xl font-bold">Custom</span>
+                </div>
+                <p className="text-muted-foreground mt-2">For large organizations with custom needs</p>
+              </div>
+              <div className="p-6">
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>All Business features</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Unlimited users</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Custom integrations</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>White labeling</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
+                    <span>Dedicated account manager</span>
+                  </li>
+                </ul>
+                <Button className="w-full mt-6" variant="outline"
+                  onClick={() => window.location.href = "/contact"}>
+                  Contact Sales
+                </Button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       <section 
         ref={benefitsRef} 
         className="py-20 px-4"
@@ -418,191 +654,38 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* News Section - New Section 4 */}
       <section 
-        ref={teamRef} 
-        className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
+        ref={newsRef} 
+        className="py-20 px-4 bg-gradient-to-b from-background to-muted/20"
       >
         <motion.div
           initial="hidden"
-          animate={teamInView ? "visible" : "hidden"}
+          animate={newsInView ? "visible" : "hidden"}
           variants={fadeIn}
           className="max-w-7xl mx-auto"
         >
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Expert Team</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest News & Updates</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our team of fire safety experts and learning specialists ensures the highest quality training content
+              Stay informed about the latest developments in fire safety training
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://ui-avatars.com/api/?name=John+Smith&background=FF6B45&color=fff&size=128"
-                  alt="John Smith"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-1">John Smith</h3>
-              <p className="text-muted-foreground mb-2">Fire Safety Director</p>
-              <p className="text-sm text-muted-foreground">
-                25+ years experience in fire prevention and emergency management
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://ui-avatars.com/api/?name=Laura+Chen&background=1CA0E8&color=fff&size=128"
-                  alt="Laura Chen"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-1">Laura Chen</h3>
-              <p className="text-muted-foreground mb-2">Training Lead</p>
-              <p className="text-sm text-muted-foreground">
-                Specialist in developing interactive learning experiences
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://ui-avatars.com/api/?name=Marcus+Johnson&background=7A5AF8&color=fff&size=128"
-                  alt="Marcus Johnson"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-1">Marcus Johnson</h3>
-              <p className="text-muted-foreground mb-2">Compliance Expert</p>
-              <p className="text-sm text-muted-foreground">
-                Former fire marshal with deep knowledge of regulations
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
-                <img
-                  src="https://ui-avatars.com/api/?name=Sofia+Rodriguez&background=10B981&color=fff&size=128"
-                  alt="Sofia Rodriguez"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-bold mb-1">Sofia Rodriguez</h3>
-              <p className="text-muted-foreground mb-2">Product Manager</p>
-              <p className="text-sm text-muted-foreground">
-                Ensures our platform meets the needs of safety professionals
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      <section 
-        ref={ctaRef} 
-        className="py-32 px-4 bg-gradient-to-b from-background via-fire-950/20 to-background relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,107,69,0.15),transparent_70%)]"></div>
-        <motion.div
-          initial="hidden"
-          animate={ctaInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          className="max-w-4xl mx-auto text-center relative z-10"
-        >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Ready to Transform Your Fire Safety Training?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of organizations that trust our platform for their fire safety training needs
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {user ? (
-              <Button 
-                className="bg-gradient-fire hover:bg-gradient-fire/90"
-                size="lg"
-                onClick={() => window.location.href = "/dashboard"}
-              >
-                Go to Dashboard
-              </Button>
-            ) : (
-              <>
-                <Button 
-                  className="bg-gradient-fire hover:bg-gradient-fire/90"
-                  size="lg"
-                  onClick={() => window.location.href = "/auth?mode=signup"}
-                >
-                  Get Started for Free
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* News 1 */}
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover-scale">
+              <div className="h-48 bg-gradient-to-r from-fire-500 to-fire-600"></div>
+              <div className="p-6">
+                <div className="text-sm text-muted-foreground mb-2">June 15, 2023</div>
+                <h3 className="text-xl font-bold mb-2">New Fire Safety Regulations to Take Effect in 2023</h3>
+                <p className="text-muted-foreground mb-4">Learn about the upcoming regulatory changes and how our platform is ready to help you stay compliant.</p>
+                <Button variant="link" className="px-0 text-fire-500" onClick={() => window.location.href = "/news/1"}>
+                  Read More
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-white/20 hover:bg-white/10"
-                  onClick={() => window.location.href = "/auth?mode=login"}
-                >
-                  Sign In
-                </Button>
-              </>
-            )}
-          </div>
-        </motion.div>
-      </section>
-
-      <footer className="py-12 px-4 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">Fire Training System</h3>
-              <p className="text-muted-foreground mb-4">
-                Comprehensive fire safety training and certification management for organizations of all sizes.
-              </p>
-              <div className="flex gap-4">
-                <a href="#" className="text-muted-foreground hover:text-white">
-                  <span className="sr-only">Twitter</span>
-                  <span className="text-xl">𝕏</span>
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-white">
-                  <span className="sr-only">LinkedIn</span>
-                  <span className="text-xl">in</span>
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-white">
-                  <span className="sr-only">Facebook</span>
-                  <span className="text-xl">f</span>
-                </a>
               </div>
             </div>
-            <div>
-              <h4 className="font-semibold mb-4">Platform</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Training Modules</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Compliance</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Case Studies</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-12 pt-8 border-t border-white/10 text-center text-muted-foreground">
-            <p>© 2023 Fire Training System. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
-
-export default Landing;
+            
+            {/* News 2 */}
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover-scale">
+              <div className="h-48 bg-gradient-to-r

@@ -4,6 +4,7 @@ import { Logo } from "@/components/ui/logo";
 import { Button } from "@/components/ui/button";
 import { UserNav } from "@/components/layout/user-nav";
 import { SidebarNav } from "@/components/layout/sidebar-nav";
+import { Navbar } from "@/components/layout/navbar";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -20,15 +21,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="h-16 border-b flex items-center px-4 justify-between">
-        <div className="flex items-center">
-          <Button variant="ghost" size="icon" onClick={toggleSidebar} className="mr-2 lg:hidden">
-            {isOpen ? <X /> : <Menu />}
-          </Button>
-          <Logo />
-        </div>
-        <UserNav />
-      </header>
+      <Navbar />
       
       <div className="flex flex-1 overflow-hidden">
         <aside className={cn(
