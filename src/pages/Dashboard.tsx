@@ -10,7 +10,7 @@ import { Bell, Calendar, Award, Clock, Flame } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, userProfile } = useAuth();
   const userModules = user ? getUserTrainingModules(user.role) : [];
   
   // Get in-progress modules
@@ -37,7 +37,7 @@ export default function Dashboard() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back, {user?.name}! Here's your safety training overview.
+            Welcome back, {userProfile?.name || 'User'}! Here's your safety training overview.
           </p>
         </div>
         <div className="flex gap-2">

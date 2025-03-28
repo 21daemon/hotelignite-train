@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -30,7 +29,6 @@ const TestimonialCard = ({ quote, author, role, avatar }: { quote: string, autho
   );
 };
 
-// Animation variants for elements
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -39,7 +37,6 @@ const fadeIn = {
 const Landing = () => {
   const { user } = useAuth();
   
-  // Section refs for animation
   const heroRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
@@ -49,7 +46,6 @@ const Landing = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const teamRef = useRef<HTMLDivElement>(null);
   
-  // Check if each section is in view for animations
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const featuresInView = useInView(featuresRef, { once: true, amount: 0.3 });
   const howItWorksInView = useInView(howItWorksRef, { once: true, amount: 0.3 });
@@ -61,7 +57,6 @@ const Landing = () => {
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-background">
-      {/* Hero Section */}
       <section 
         ref={heroRef} 
         className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden"
@@ -82,29 +77,26 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {user ? (
               <Button 
-                as={Link} 
-                to="/dashboard" 
-                size="lg" 
                 className="bg-gradient-fire hover:bg-gradient-fire/90"
+                size="lg"
+                onClick={() => window.location.href = "/dashboard"}
               >
                 Go to Dashboard
               </Button>
             ) : (
               <>
                 <Button 
-                  as={Link} 
-                  to="/auth?mode=login" 
-                  size="lg" 
                   className="bg-gradient-fire hover:bg-gradient-fire/90"
+                  size="lg"
+                  onClick={() => window.location.href = "/auth?mode=login"}
                 >
                   Sign In
                 </Button>
                 <Button 
-                  as={Link} 
-                  to="/auth?mode=signup"
                   size="lg" 
                   variant="outline" 
                   className="border-fire-500 text-fire-500 hover:bg-fire-500/10"
+                  onClick={() => window.location.href = "/auth?mode=signup"}
                 >
                   Create Account
                 </Button>
@@ -114,7 +106,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Features Section */}
       <section 
         ref={featuresRef} 
         className="py-20 px-4"
@@ -167,7 +158,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* How It Works Section */}
       <section 
         ref={howItWorksRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
@@ -211,7 +201,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Testimonials Section */}
       <section 
         ref={testimonialsRef} 
         className="py-20 px-4"
@@ -252,7 +241,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Training Modules Section */}
       <section 
         ref={modulesRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
@@ -350,7 +338,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Benefits Section */}
       <section 
         ref={benefitsRef} 
         className="py-20 px-4"
@@ -431,7 +418,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Team Section */}
       <section 
         ref={teamRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
@@ -510,7 +496,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* CTA Section */}
       <section 
         ref={ctaRef} 
         className="py-32 px-4 bg-gradient-to-b from-background via-fire-950/20 to-background relative overflow-hidden"
@@ -531,29 +516,26 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {user ? (
               <Button 
-                as={Link} 
-                to="/dashboard" 
-                size="lg" 
                 className="bg-gradient-fire hover:bg-gradient-fire/90"
+                size="lg"
+                onClick={() => window.location.href = "/dashboard"}
               >
                 Go to Dashboard
               </Button>
             ) : (
               <>
                 <Button 
-                  as={Link} 
-                  to="/auth?mode=signup" 
-                  size="lg" 
                   className="bg-gradient-fire hover:bg-gradient-fire/90"
+                  size="lg"
+                  onClick={() => window.location.href = "/auth?mode=signup"}
                 >
                   Get Started for Free
                 </Button>
                 <Button 
-                  as={Link} 
-                  to="/auth?mode=login" 
                   size="lg" 
                   variant="outline" 
                   className="border-white/20 hover:bg-white/10"
+                  onClick={() => window.location.href = "/auth?mode=login"}
                 >
                   Sign In
                 </Button>
@@ -563,7 +545,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Footer */}
       <footer className="py-12 px-4 border-t border-white/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8">
