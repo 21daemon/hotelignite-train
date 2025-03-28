@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { ProgressSummary } from "@/components/training/progress-summary";
 import { ModuleCard } from "@/components/training/module-card";
 import { getUserTrainingModules } from "@/data/training-modules";
-import { Bell, Calendar, Certificate, Clock, Flame } from "lucide-react";
+import { Bell, Calendar, Award, Clock, Flame } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
@@ -144,7 +144,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Certificate className="mr-2 h-5 w-5 text-muted-foreground" />
+                <Award className="mr-2 h-5 w-5 text-muted-foreground" />
                 Certifications
               </CardTitle>
               <CardDescription>Your current certifications</CardDescription>
