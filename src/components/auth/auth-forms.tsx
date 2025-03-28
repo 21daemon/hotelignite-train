@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth, UserRole } from "@/contexts/AuthContext";
+import { Loader2 } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -90,15 +91,15 @@ export function LoginForm() {
           )}
         />
         <Button type="submit" className="w-full bg-gradient-fire" disabled={isLoading}>
-          {isLoading ? "Logging in..." : "Login"}
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Logging in...
+            </>
+          ) : (
+            "Login"
+          )}
         </Button>
-        
-        <div className="text-sm text-center text-muted-foreground mt-2">
-          <p>Demo accounts:</p>
-          <p>admin@example.com / password</p>
-          <p>manager@example.com / password</p>
-          <p>reception@example.com / password</p>
-        </div>
       </form>
     </Form>
   );
@@ -198,7 +199,14 @@ export function SignupForm() {
           )}
         />
         <Button type="submit" className="w-full bg-gradient-azure" disabled={isLoading}>
-          {isLoading ? "Creating account..." : "Create Account"}
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Creating account...
+            </>
+          ) : (
+            "Create Account"
+          )}
         </Button>
       </form>
     </Form>

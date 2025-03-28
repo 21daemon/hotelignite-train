@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { MainLayout } from "@/components/layout/main-layout";
 
 import Landing from "./pages/Landing";
+import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Training from "./pages/Training";
 import NotFound from "./pages/NotFound";
@@ -23,7 +24,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }
   
   if (!user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth?mode=login" replace />;
   }
   
   return <>{children}</>;
@@ -46,9 +47,11 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={
+    <Route path="/" element={<Landing />} />
+    
+    <Route path="/auth" element={
       <PublicRoute>
-        <Landing />
+        <Auth />
       </PublicRoute>
     } />
     
