@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { User, Session } from '@supabase/supabase-js';
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
 
 export type UserRole = "admin" | "manager" | "receptionist" | "housekeeping" | "security" | "maintenance" | "food_service";
 
@@ -26,36 +27,55 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Mock profiles for demo - used when there's no database
-const generateUserProfile = (user: User): UserProfile => {
-  return {
-    id: user.id,
-    name: user.email?.split('@')[0] || 'User',
-    email: user.email || '',
-    role: "receptionist" as UserRole,
-    avatarUrl: `https://ui-avatars.com/api/?name=${user.email?.split('@')[0]}&background=FF6B45&color=fff`
-  };
-};
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetch profile from Supabase
+  const fetchProfile = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching profile:", error);
+        return null;
+      }
+
+      if (data) {
+        return {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          role: data.role as UserRole,
+          avatarUrl: data.avatar_url
+        } as UserProfile;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error("Error in fetchProfile:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // If user is logged in, generate a profile
+        // If user is logged in, fetch their profile
         if (session?.user) {
-          // In a real app, we would fetch the profile from a database
-          // For demo, we generate a profile
-          setTimeout(() => {
-            const profile = generateUserProfile(session.user);
+          // Use setTimeout to prevent potential deadlocks
+          setTimeout(async () => {
+            const profile = await fetchProfile(session.user.id);
             setUserProfile(profile);
           }, 0);
         } else {
@@ -65,14 +85,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        // In a real app, we would fetch the profile from a database
-        // For demo, we generate a profile
-        const profile = generateUserProfile(session.user);
+        const profile = await fetchProfile(session.user.id);
         setUserProfile(profile);
       }
       
