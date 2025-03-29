@@ -18,6 +18,13 @@ export function MainLayout({ children }: MainLayoutProps) {
   const isMobile = useIsMobile();
   
   const toggleSidebar = () => setIsOpen(!isOpen);
+  
+  // Close sidebar when clicked outside on mobile
+  const handleMainClick = () => {
+    if (isMobile && isOpen) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -25,7 +32,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       
       <div className="flex flex-1 overflow-hidden">
         <aside className={cn(
-          "border-r bg-muted/40 w-64 flex-shrink-0 flex-col overflow-y-auto",
+          "border-r bg-muted/40 w-64 flex-shrink-0 flex-col overflow-y-auto z-30",
           isMobile && "fixed inset-y-0 z-50 transition-transform transform-gpu",
           isMobile && !isOpen && "-translate-x-full",
           isMobile && isOpen && "translate-x-0"
@@ -48,7 +55,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           </div>
         </aside>
         
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto" onClick={handleMainClick}>
           {isMobile && (
             <Button
               variant="outline"

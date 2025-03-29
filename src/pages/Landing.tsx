@@ -15,7 +15,15 @@ import {
   Flame, 
   BarChart,
   PieChart,
-  Heart
+  Heart,
+  PlayCircle,
+  Phone,
+  Headphones,
+  ThumbsUp,
+  ArrowRight,
+  Monitor,
+  Smartphone,
+  Code
 } from "lucide-react";
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => {
@@ -62,8 +70,8 @@ const Landing = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const partnersRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
-  const newsRef = useRef<HTMLDivElement>(null);
-  const faqRef = useRef<HTMLDivElement>(null);
+  const demoRef = useRef<HTMLDivElement>(null);
+  const techRef = useRef<HTMLDivElement>(null);
   
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const featuresInView = useInView(featuresRef, { once: true, amount: 0.3 });
@@ -76,62 +84,99 @@ const Landing = () => {
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
   const partnersInView = useInView(partnersRef, { once: true, amount: 0.3 });
   const pricingInView = useInView(pricingRef, { once: true, amount: 0.3 });
-  const newsInView = useInView(newsRef, { once: true, amount: 0.3 });
-  const faqInView = useInView(faqRef, { once: true, amount: 0.3 });
+  const demoInView = useInView(demoRef, { once: true, amount: 0.3 });
+  const techInView = useInView(techRef, { once: true, amount: 0.3 });
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-background">
       <Navbar />
       
+      {/* Enhanced Hero Section */}
       <section 
         ref={heroRef} 
-        className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden"
+        className="min-h-screen relative overflow-hidden py-20 flex items-center"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,107,69,0.1),transparent_50%)]"></div>
-        <motion.div
-          initial="hidden"
-          animate={heroInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          className="max-w-4xl mx-auto z-10"
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Fire Training <span className="bg-gradient-fire text-transparent bg-clip-text">Management</span> System
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Comprehensive fire safety training and certification management for your organization
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {user ? (
-              <Button 
-                className="bg-gradient-fire hover:bg-gradient-fire/90"
-                size="lg"
-                onClick={() => window.location.href = "/dashboard"}
-              >
-                Go to Dashboard
-              </Button>
-            ) : (
-              <>
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,107,69,0.15),transparent_60%)]"></div>
+        <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-azure-500/10 blur-3xl"></div>
+        <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full bg-fire-500/10 blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial="hidden"
+            animate={heroInView ? "visible" : "hidden"}
+            variants={{
+              hidden: { opacity: 0, x: -50 },
+              visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+            }}
+            className="z-10"
+          >
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              Modern <span className="bg-gradient-to-r from-fire-500 to-fire-600 text-transparent bg-clip-text">Fire Safety</span> Training Platform
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
+              Comprehensive fire safety training and certification management that keeps your team safe and your business compliant.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              {user ? (
                 <Button 
-                  className="bg-gradient-fire hover:bg-gradient-fire/90"
+                  className="bg-gradient-to-r from-fire-500 to-fire-600 hover:opacity-90 text-white shadow-lg shadow-fire-500/20"
                   size="lg"
-                  onClick={() => window.location.href = "/auth?mode=login"}
+                  onClick={() => window.location.href = "/dashboard"}
                 >
-                  Sign In
+                  Go to Dashboard <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-fire-500 text-fire-500 hover:bg-fire-500/10"
-                  onClick={() => window.location.href = "/auth?mode=signup"}
-                >
-                  Create Account
-                </Button>
-              </>
-            )}
-          </div>
-        </motion.div>
+              ) : (
+                <>
+                  <Button 
+                    className="bg-gradient-to-r from-fire-500 to-fire-600 hover:opacity-90 text-white shadow-lg shadow-fire-500/20"
+                    size="lg"
+                    onClick={() => window.location.href = "/auth?mode=login"}
+                  >
+                    Get Started <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-fire-500 text-fire-500 hover:bg-fire-500/10"
+                    onClick={() => window.location.href = "/auth?mode=signup"}
+                  >
+                    Watch Demo <PlayCircle className="ml-2 w-4 h-4" />
+                  </Button>
+                </>
+              )}
+            </div>
+          </motion.div>
+          
+          <motion.div
+            initial="hidden"
+            animate={heroInView ? "visible" : "hidden"}
+            variants={{
+              hidden: { opacity: 0, x: 50 },
+              visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.2 } }
+            }}
+            className="relative z-10 hidden md:block"
+          >
+            <div className="relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-fire-500 to-azure-500 rounded-2xl blur opacity-30"></div>
+              <div className="relative bg-black/40 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10">
+                <img 
+                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
+                  alt="Fire safety training" 
+                  className="w-full h-full object-cover rounded-2xl opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8">
+                  <div className="text-2xl font-bold text-white mb-2">Interactive Training Modules</div>
+                  <p className="text-white/80">Engage your team with our industry-leading fire safety courses</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
+      {/* Features Section */}
       <section 
         ref={featuresRef} 
         id="features"
@@ -185,7 +230,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section - New Section 1 */}
+      {/* Stats Section */}
       <section 
         ref={statsRef} 
         className="py-20 px-4 bg-gradient-to-r from-fire-900/20 to-azure-900/20"
@@ -204,19 +249,19 @@ const Landing = () => {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="p-6 rounded-lg glass-card">
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10">
               <div className="text-4xl md:text-5xl font-bold text-fire-500 mb-2">98%</div>
               <p className="text-sm md:text-base text-muted-foreground">Compliance Rate</p>
             </div>
-            <div className="p-6 rounded-lg glass-card">
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10">
               <div className="text-4xl md:text-5xl font-bold text-azure-500 mb-2">75%</div>
               <p className="text-sm md:text-base text-muted-foreground">Reduction in Admin Time</p>
             </div>
-            <div className="p-6 rounded-lg glass-card">
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10">
               <div className="text-4xl md:text-5xl font-bold text-fire-500 mb-2">65%</div>
               <p className="text-sm md:text-base text-muted-foreground">Fewer Incidents</p>
             </div>
-            <div className="p-6 rounded-lg glass-card">
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10">
               <div className="text-4xl md:text-5xl font-bold text-azure-500 mb-2">24/7</div>
               <p className="text-sm md:text-base text-muted-foreground">Platform Availability</p>
             </div>
@@ -224,6 +269,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* How It Works Section */}
       <section 
         ref={howItWorksRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
@@ -243,21 +289,21 @@ const Landing = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-fire flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">1</div>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-fire-500 to-fire-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">1</div>
               <h3 className="text-xl font-bold mb-2">Assign Training</h3>
               <p className="text-muted-foreground">
                 Assign relevant fire safety training modules to employees based on their roles
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-azure flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">2</div>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-azure-500 to-azure-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">2</div>
               <h3 className="text-xl font-bold mb-2">Complete Courses</h3>
               <p className="text-muted-foreground">
                 Employees complete interactive training courses and assessments at their own pace
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-purple flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">3</div>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">3</div>
               <h3 className="text-xl font-bold mb-2">Track Progress</h3>
               <p className="text-muted-foreground">
                 Monitor completion rates, certification status, and compliance in real-time
@@ -267,7 +313,113 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Partners Section - New Section 2 */}
+      {/* Demo Section - New Section */}
+      <section 
+        ref={demoRef} 
+        className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background"
+      >
+        <motion.div
+          initial="hidden"
+          animate={demoInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">See the Platform in Action</h2>
+              <p className="text-muted-foreground mb-8">
+                Watch our demo video to see how our fire safety training platform works in real-time. Discover the intuitive interface that makes managing compliance a breeze.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full bg-fire-500/10 p-1 mt-1">
+                    <CheckCircle className="w-4 h-4 text-fire-500" />
+                  </div>
+                  <p>Intuitive user interface with real-time dashboards</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full bg-fire-500/10 p-1 mt-1">
+                    <CheckCircle className="w-4 h-4 text-fire-500" />
+                  </div>
+                  <p>Interactive training modules with assessment tools</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full bg-fire-500/10 p-1 mt-1">
+                    <CheckCircle className="w-4 h-4 text-fire-500" />
+                  </div>
+                  <p>Automated certification tracking and renewal reminders</p>
+                </div>
+              </div>
+              <Button 
+                className="mt-8 bg-gradient-to-r from-fire-500 to-fire-600 hover:opacity-90"
+                onClick={() => window.location.href = "/demo"}
+              >
+                <PlayCircle className="mr-2 h-4 w-4" /> Watch Full Demo
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-fire-500 to-azure-500 rounded-2xl blur opacity-30"></div>
+              <div className="relative bg-black/40 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 aspect-video">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 cursor-pointer hover:bg-white/20 transition-all transform hover:scale-105">
+                    <PlayCircle className="w-10 h-10 text-white" />
+                  </div>
+                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843" 
+                  alt="Platform demo" 
+                  className="w-full h-full object-cover opacity-70"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Technology Stack - New Section */}
+      <section 
+        ref={techRef} 
+        className="py-20 px-4 bg-gradient-to-r from-fire-900/10 to-azure-900/10"
+      >
+        <motion.div
+          initial="hidden"
+          animate={techInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Built with Modern Technology</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our platform leverages cutting-edge technology to provide a seamless experience
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10 text-center">
+              <Monitor className="w-12 h-12 mx-auto mb-4 text-fire-500" />
+              <h3 className="font-bold mb-2">Web Platform</h3>
+              <p className="text-sm text-muted-foreground">Access from any modern browser</p>
+            </div>
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10 text-center">
+              <Smartphone className="w-12 h-12 mx-auto mb-4 text-azure-500" />
+              <h3 className="font-bold mb-2">Mobile Responsive</h3>
+              <p className="text-sm text-muted-foreground">Train on any device, anywhere</p>
+            </div>
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10 text-center">
+              <Zap className="w-12 h-12 mx-auto mb-4 text-purple-500" />
+              <h3 className="font-bold mb-2">Real-time Data</h3>
+              <p className="text-sm text-muted-foreground">Instant updates and analytics</p>
+            </div>
+            <div className="p-6 rounded-lg glass-card bg-white/5 backdrop-blur-sm border border-white/10 text-center">
+              <Shield className="w-12 h-12 mx-auto mb-4 text-green-500" />
+              <h3 className="font-bold mb-2">Secure Platform</h3>
+              <p className="text-sm text-muted-foreground">Enterprise-grade security</p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Partners Section */}
       <section 
         ref={partnersRef} 
         className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background"
@@ -288,7 +440,7 @@ const Landing = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="flex justify-center">
-                <div className="w-24 h-24 rounded-full bg-muted/50 flex items-center justify-center text-2xl font-bold text-muted-foreground">
+                <div className="w-24 h-24 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center text-lg font-bold text-muted-foreground">
                   Logo {i}
                 </div>
               </div>
@@ -297,6 +449,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* Testimonials Section */}
       <section 
         ref={testimonialsRef} 
         className="py-20 px-4"
@@ -337,6 +490,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* Training Modules Section */}
       <section 
         ref={modulesRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
@@ -356,7 +510,7 @@ const Landing = () => {
           
           <div className="grid md:grid-cols-2 gap-8">
             <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
-              <div className="h-40 bg-gradient-fire flex items-center justify-center">
+              <div className="h-40 bg-gradient-to-r from-fire-500 to-fire-600 flex items-center justify-center">
                 <span className="text-5xl">🧯</span>
               </div>
               <div className="p-6">
@@ -375,7 +529,7 @@ const Landing = () => {
             </div>
 
             <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
-              <div className="h-40 bg-gradient-azure flex items-center justify-center">
+              <div className="h-40 bg-gradient-to-r from-azure-500 to-azure-600 flex items-center justify-center">
                 <span className="text-5xl">🚨</span>
               </div>
               <div className="p-6">
@@ -394,7 +548,7 @@ const Landing = () => {
             </div>
 
             <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm">
-              <div className="h-40 bg-gradient-purple flex items-center justify-center">
+              <div className="h-40 bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center">
                 <span className="text-5xl">🔥</span>
               </div>
               <div className="p-6">
@@ -434,7 +588,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Pricing Section - New Section 3 */}
+      {/* Pricing Section */}
       <section 
         ref={pricingRef} 
         id="pricing"
@@ -483,7 +637,7 @@ const Landing = () => {
                     <span>Standard reports</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-gradient-fire hover:bg-gradient-fire/90"
+                <Button className="w-full mt-6 bg-gradient-to-r from-fire-500 to-fire-600 hover:opacity-90"
                   onClick={() => window.location.href = "/auth?mode=signup&plan=starter"}>
                   Get Started
                 </Button>
@@ -526,7 +680,7 @@ const Landing = () => {
                     <span>Priority support</span>
                   </li>
                 </ul>
-                <Button className="w-full mt-6 bg-gradient-fire hover:bg-gradient-fire/90"
+                <Button className="w-full mt-6 bg-gradient-to-r from-fire-500 to-fire-600 hover:opacity-90"
                   onClick={() => window.location.href = "/auth?mode=signup&plan=business"}>
                   Get Started
                 </Button>
@@ -575,6 +729,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* Benefits Section */}
       <section 
         ref={benefitsRef} 
         className="py-20 px-4"
@@ -655,130 +810,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* News Section */}
-      <section 
-        ref={newsRef} 
-        className="py-20 px-4 bg-gradient-to-b from-background to-muted/20"
-      >
-        <motion.div
-          initial="hidden"
-          animate={newsInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          className="max-w-7xl mx-auto"
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest News & Updates</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Stay informed about the latest developments in fire safety training
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* News 1 */}
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg transition-all hover:-translate-y-1">
-              <div className="h-48 bg-gradient-to-r from-fire-500 to-fire-600"></div>
-              <div className="p-6">
-                <div className="text-sm text-muted-foreground mb-2">June 15, 2023</div>
-                <h3 className="text-xl font-bold mb-2">New Fire Safety Regulations to Take Effect in 2023</h3>
-                <p className="text-muted-foreground mb-4">Learn about the upcoming regulatory changes and how our platform is ready to help you stay compliant.</p>
-                <Button variant="link" className="px-0 text-fire-500" onClick={() => window.location.href = "/news/1"}>
-                  Read More
-                </Button>
-              </div>
-            </div>
-            
-            {/* News 2 */}
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg transition-all hover:-translate-y-1">
-              <div className="h-48 bg-gradient-to-r from-azure-500 to-azure-600"></div>
-              <div className="p-6">
-                <div className="text-sm text-muted-foreground mb-2">May 22, 2023</div>
-                <h3 className="text-xl font-bold mb-2">Case Study: How ABC Company Improved Safety Training</h3>
-                <p className="text-muted-foreground mb-4">Discover how a manufacturing company achieved 99% compliance and reduced incidents by 70% using our platform.</p>
-                <Button variant="link" className="px-0 text-azure-500" onClick={() => window.location.href = "/news/2"}>
-                  Read More
-                </Button>
-              </div>
-            </div>
-            
-            {/* News 3 */}
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg transition-all hover:-translate-y-1">
-              <div className="h-48 bg-gradient-to-r from-purple-500 to-purple-600"></div>
-              <div className="p-6">
-                <div className="text-sm text-muted-foreground mb-2">April 10, 2023</div>
-                <h3 className="text-xl font-bold mb-2">Introducing Advanced Fire Simulation Training</h3>
-                <p className="text-muted-foreground mb-4">Our new VR fire simulation modules provide realistic training scenarios without the risks of live fire exercises.</p>
-                <Button variant="link" className="px-0 text-purple-500" onClick={() => window.location.href = "/news/3"}>
-                  Read More
-                </Button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* FAQ Section */}
-      <section 
-        ref={faqRef} 
-        className="py-20 px-4"
-      >
-        <motion.div
-          initial="hidden"
-          animate={faqInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          className="max-w-7xl mx-auto"
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Find answers to common questions about our fire training management platform
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-8">
-              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-                <h3 className="text-xl font-bold mb-3">How does the platform ensure regulatory compliance?</h3>
-                <p className="text-muted-foreground">Our platform stays updated with the latest fire safety regulations across different jurisdictions. We automatically track training requirements and certifications to ensure your organization remains compliant.</p>
-              </div>
-              
-              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-                <h3 className="text-xl font-bold mb-3">Can I customize training modules for my specific industry?</h3>
-                <p className="text-muted-foreground">Yes, our Business and Enterprise plans allow for customization of training modules to address industry-specific scenarios and requirements. This ensures your team receives relevant training for their work environment.</p>
-              </div>
-              
-              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-                <h3 className="text-xl font-bold mb-3">How are training certifications verified?</h3>
-                <p className="text-muted-foreground">Our platform includes built-in assessment tools that verify comprehension and skill acquisition. Upon successful completion, digital certificates are issued and stored securely in the system for easy retrieval during audits.</p>
-              </div>
-            </div>
-            
-            <div className="space-y-8">
-              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-                <h3 className="text-xl font-bold mb-3">What kind of reporting capabilities does the platform offer?</h3>
-                <p className="text-muted-foreground">Our comprehensive reporting system provides real-time insights into training completion rates, certification status, and compliance metrics. Custom reports can be generated for specific departments, locations, or time periods.</p>
-              </div>
-              
-              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-                <h3 className="text-xl font-bold mb-3">How long does implementation typically take?</h3>
-                <p className="text-muted-foreground">Most organizations can be fully onboarded within 2-4 weeks, depending on the size of your team and complexity of your training requirements. Our implementation specialists work closely with you throughout the process.</p>
-              </div>
-              
-              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-                <h3 className="text-xl font-bold mb-3">Can the platform integrate with our existing HR systems?</h3>
-                <p className="text-muted-foreground">Yes, our platform offers integration capabilities with major HR and learning management systems. The Enterprise plan includes custom API integrations to ensure seamless data flow across your organization's tech ecosystem.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-12 text-center">
-            <p className="text-muted-foreground mb-6">Still have questions? We're here to help!</p>
-            <Button className="bg-gradient-fire hover:bg-gradient-fire/90" size="lg" onClick={() => window.location.href = "/contact"}>
-              Contact Support
-            </Button>
-          </div>
-        </motion.div>
-      </section>
-
       {/* CTA Section */}
       <section 
         ref={ctaRef} 
@@ -796,7 +827,7 @@ const Landing = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              className="bg-gradient-fire hover:bg-gradient-fire/90"
+              className="bg-gradient-to-r from-fire-500 to-fire-600 hover:opacity-90 shadow-lg shadow-fire-500/20"
               size="lg"
               onClick={() => window.location.href = "/auth?mode=signup"}
             >
@@ -805,6 +836,7 @@ const Landing = () => {
             <Button 
               variant="outline" 
               size="lg"
+              className="border-white/20 hover:bg-white/10"
               onClick={() => window.location.href = "/demo"}
             >
               Request Demo
