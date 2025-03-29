@@ -4,9 +4,10 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Clock, CheckCircle2 } from "lucide-react";
+import { Clock, CheckCircle2, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface ModuleCardProps {
   module: TrainingModule;
@@ -14,6 +15,8 @@ interface ModuleCardProps {
 }
 
 export function ModuleCard({ module, className }: ModuleCardProps) {
+  const [imageError, setImageError] = useState(false);
+  
   const levelColors = {
     beginner: "bg-green-100 text-green-800",
     intermediate: "bg-blue-100 text-blue-800",
@@ -30,10 +33,28 @@ export function ModuleCard({ module, className }: ModuleCardProps) {
 
   return (
     <Card className={cn("hover-scale overflow-hidden", className)}>
-      <div 
-        className="h-40 bg-cover bg-center" 
-        style={{ backgroundImage: `url(${module.imageUrl})` }}
-      />
+      {!imageError ? (
+        <div 
+          className="h-40 bg-cover bg-center relative" 
+          style={{ 
+            backgroundImage: `url(${module.imageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center' 
+          }}
+        >
+          <img 
+            src={module.imageUrl} 
+            alt={module.title}
+            className="hidden"
+            onError={() => setImageError(true)}
+          />
+        </div>
+      ) : (
+        <div className="h-40 bg-muted flex items-center justify-center">
+          <ImageIcon size={48} className="text-muted-foreground opacity-50" />
+        </div>
+      )}
+      
       <CardHeader className="relative p-4">
         <div className="flex justify-between">
           <Badge className={levelColors[module.level]} variant="outline">
