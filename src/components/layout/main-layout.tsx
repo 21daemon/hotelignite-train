@@ -1,5 +1,5 @@
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { Logo } from "@/components/ui/logo";
 import { Button } from "@/components/ui/button";
 import { UserNav } from "@/components/layout/user-nav";
@@ -8,6 +8,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLocation } from "react-router-dom";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -16,6 +17,14 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
+  
+  // Close sidebar when route changes
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      setIsOpen(false);
+    }
+  }, [location.pathname, isMobile, isOpen]);
   
   const toggleSidebar = () => setIsOpen(!isOpen);
   
@@ -31,9 +40,18 @@ export function MainLayout({ children }: MainLayoutProps) {
       <Navbar />
       
       <div className="flex flex-1 overflow-hidden">
+        {/* Overlay for mobile when sidebar is open */}
+        {isMobile && isOpen && (
+          <div 
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={toggleSidebar}
+            aria-hidden="true"
+          />
+        )}
+        
         <aside className={cn(
-          "border-r bg-muted/40 w-64 flex-shrink-0 flex-col overflow-y-auto z-30",
-          isMobile && "fixed inset-y-0 z-50 transition-transform transform-gpu",
+          "border-r bg-muted/40 w-64 flex-shrink-0 flex-col overflow-y-auto z-50",
+          isMobile && "fixed inset-y-0 transition-transform transform-gpu h-full",
           isMobile && !isOpen && "-translate-x-full",
           isMobile && isOpen && "translate-x-0"
         )}>
@@ -45,6 +63,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 size="sm" 
                 className="ml-auto"
                 onClick={toggleSidebar}
+                aria-label="Close navigation"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -62,11 +81,12 @@ export function MainLayout({ children }: MainLayoutProps) {
               size="sm"
               className="fixed bottom-4 right-4 z-40 rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
               onClick={toggleSidebar}
+              aria-label="Open navigation"
             >
               <Menu className="h-5 w-5" />
             </Button>
           )}
-          <div className="container py-6">
+          <div className="container py-6 mx-auto">
             {children}
           </div>
         </main>
