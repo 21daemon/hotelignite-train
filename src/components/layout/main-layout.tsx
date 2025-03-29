@@ -43,20 +43,20 @@ export function MainLayout({ children }: MainLayoutProps) {
         {/* Overlay for mobile when sidebar is open */}
         {isMobile && isOpen && (
           <div 
-            className="fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
             onClick={toggleSidebar}
             aria-hidden="true"
           />
         )}
         
         <aside className={cn(
-          "border-r bg-muted/40 w-64 flex-shrink-0 flex-col overflow-y-auto z-50",
-          isMobile && "fixed inset-y-0 transition-transform transform-gpu h-full",
+          "border-r bg-gradient-to-b from-muted/40 to-background/80 w-64 flex-shrink-0 flex-col overflow-y-auto z-50 shadow-md",
+          isMobile && "fixed inset-y-0 transition-transform transform-gpu h-full duration-300 ease-in-out",
           isMobile && !isOpen && "-translate-x-full",
           isMobile && isOpen && "translate-x-0"
         )}>
-          <div className="h-16 border-b flex items-center px-6">
-            <h2 className="text-lg font-semibold">Navigation</h2>
+          <div className="h-16 border-b flex items-center px-6 bg-background/60 backdrop-blur-sm">
+            <h2 className="text-lg font-semibold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Navigation</h2>
             {isMobile && (
               <Button 
                 variant="ghost" 
@@ -79,7 +79,7 @@ export function MainLayout({ children }: MainLayoutProps) {
             <Button
               variant="outline"
               size="sm"
-              className="fixed bottom-4 right-4 z-40 rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+              className="fixed bottom-4 right-4 z-40 rounded-full w-12 h-12 flex items-center justify-center shadow-lg bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/10"
               onClick={toggleSidebar}
               aria-label="Open navigation"
             >
