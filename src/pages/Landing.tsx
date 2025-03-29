@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -80,7 +79,6 @@ const scaleIn = {
 const Landing = () => {
   const { user } = useAuth();
   
-  // Refs for all sections
   const heroRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
@@ -94,7 +92,6 @@ const Landing = () => {
   const demoRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
   
-  // Check if sections are in view
   const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
   const featuresInView = useInView(featuresRef, { once: true, amount: 0.3 });
   const howItWorksInView = useInView(howItWorksRef, { once: true, amount: 0.3 });
@@ -108,26 +105,22 @@ const Landing = () => {
   const demoInView = useInView(demoRef, { once: true, amount: 0.3 });
   const techInView = useInView(techRef, { once: true, amount: 0.3 });
   
-  // Hero image URLs
   const heroImages = [
-    "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+    "https://images.unsplash.com/photo-1486312338219-ce68d2c953b2",
     "https://images.unsplash.com/photo-1544814280-0c5619c953b2",
     "https://images.unsplash.com/photo-1610492219843-0f0da2c9bc1f"
   ];
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background/95 to-background relative overflow-hidden">
-      {/* Background pattern */}
       <div className="absolute inset-0 bg-gradient-dots bg-[length:20px_20px] opacity-10 pointer-events-none"></div>
       
       <Navbar />
       
-      {/* Enhanced Hero Section */}
       <section 
         ref={heroRef} 
         className="min-h-screen relative overflow-hidden py-20 flex items-center"
       >
-        {/* Background Elements */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,107,69,0.15),transparent_60%)]"></div>
         <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-azure-500/10 blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full bg-fire-500/10 blur-3xl animate-pulse-slow"></div>
@@ -178,7 +171,6 @@ const Landing = () => {
               )}
             </div>
             
-            {/* Trusted by section */}
             <div className="mt-12">
               <p className="text-sm text-muted-foreground mb-4">TRUSTED BY COMPANIES WORLDWIDE</p>
               <div className="flex flex-wrap gap-6 items-center">
@@ -201,7 +193,6 @@ const Landing = () => {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-fire-500 to-azure-500 rounded-2xl blur opacity-30 animate-pulse-slow"></div>
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 bg-black/40 backdrop-blur-sm rounded-2xl">
-                  {/* Main hero image */}
                   <div className="relative rounded-xl overflow-hidden aspect-[4/3] col-span-2">
                     <img 
                       src={heroImages[0]} 
@@ -215,7 +206,6 @@ const Landing = () => {
                     </div>
                   </div>
                   
-                  {/* Secondary images */}
                   <div className="relative rounded-xl overflow-hidden aspect-video">
                     <img 
                       src={heroImages[1]} 
@@ -242,7 +232,6 @@ const Landing = () => {
                 </div>
               </div>
               
-              {/* Floating elements */}
               <div className="absolute -top-4 -right-4 px-4 py-2 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 shadow-lg animate-float">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -260,7 +249,6 @@ const Landing = () => {
           </motion.div>
         </div>
         
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
           <div className="w-8 h-12 rounded-full border-2 border-white/20 flex items-center justify-center">
             <div className="w-1 h-3 bg-white/60 rounded-full animate-pulse-slow"></div>
@@ -268,7 +256,6 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section 
         ref={featuresRef} 
         id="features"
@@ -329,7 +316,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section */}
       <section 
         ref={statsRef} 
         className="py-20 px-4 bg-gradient-to-r from-fire-900/20 to-azure-900/20 relative overflow-hidden"
@@ -373,7 +359,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* How It Works Section */}
       <section 
         ref={howItWorksRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30 relative"
@@ -395,7 +380,6 @@ const Landing = () => {
           </div>
           
           <div className="relative">
-            {/* Connection line */}
             <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-fire-500 to-azure-500 transform -translate-y-1/2 hidden md:block"></div>
             
             <div className="grid md:grid-cols-3 gap-8 relative">
@@ -431,7 +415,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Demo Section */}
       <section 
         ref={demoRef} 
         className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden"
@@ -500,7 +483,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Technology Stack Section */}
       <section 
         ref={techRef} 
         className="py-20 px-4 bg-gradient-to-r from-fire-900/10 to-azure-900/10 relative overflow-hidden"
@@ -548,7 +530,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Partners Section */}
       <section 
         ref={partnersRef} 
         className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background"
@@ -581,7 +562,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Testimonials Section */}
       <section 
         ref={testimonialsRef} 
         className="py-20 px-4 relative overflow-hidden"
@@ -627,7 +607,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Training Modules Section */}
       <section 
         ref={modulesRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/30"
@@ -740,7 +719,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Pricing Section */}
       <section 
         ref={pricingRef} 
         id="pricing"
@@ -765,7 +743,6 @@ const Landing = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Starter Plan */}
             <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm transition-transform hover:scale-105 hover:shadow-lg hover:shadow-fire-500/10">
               <div className="p-6 border-b border-white/10">
                 <h3 className="text-xl font-bold mb-2">Starter</h3>
@@ -801,7 +778,6 @@ const Landing = () => {
               </div>
             </div>
             
-            {/* Business Plan */}
             <div className="rounded-xl overflow-hidden border-2 border-fire-500 bg-white/5 backdrop-blur-sm transform scale-105 shadow-lg shadow-fire-500/20">
               <div className="p-6 border-b border-white/10 relative">
                 <div className="absolute top-0 right-0 bg-fire-500 text-white px-3 py-1 text-xs font-bold rounded-bl-lg">
@@ -844,7 +820,6 @@ const Landing = () => {
               </div>
             </div>
             
-            {/* Enterprise Plan */}
             <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm transition-transform hover:scale-105 hover:shadow-lg hover:shadow-azure-500/10">
               <div className="p-6 border-b border-white/10">
                 <h3 className="text-xl font-bold mb-2">Enterprise</h3>
@@ -886,7 +861,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* Benefits Section */}
       <section 
         ref={benefitsRef} 
         className="py-20 px-4"
@@ -978,7 +952,6 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* CTA Section */}
       <section 
         ref={ctaRef} 
         className="py-20 px-4 bg-gradient-to-r from-fire-900/30 to-azure-900/30 relative overflow-hidden"
@@ -1014,7 +987,7 @@ const Landing = () => {
               className="border-white/20 text-white hover:bg-white/10"
               onClick={() => window.location.href = "/demo"}
             >
-              Request Demo <CalendarIcon className="ml-2 w-4 h-4" />
+              Request Demo <Calendar className="ml-2 w-4 h-4" />
             </Button>
           </div>
         </motion.div>
