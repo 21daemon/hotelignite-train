@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -654,7 +655,7 @@ const Landing = () => {
         </motion.div>
       </section>
 
-      {/* News Section - New Section 4 */}
+      {/* News Section */}
       <section 
         ref={newsRef} 
         className="py-20 px-4 bg-gradient-to-b from-background to-muted/20"
@@ -674,7 +675,7 @@ const Landing = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {/* News 1 */}
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover-scale">
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg transition-all hover:-translate-y-1">
               <div className="h-48 bg-gradient-to-r from-fire-500 to-fire-600"></div>
               <div className="p-6">
                 <div className="text-sm text-muted-foreground mb-2">June 15, 2023</div>
@@ -687,5 +688,192 @@ const Landing = () => {
             </div>
             
             {/* News 2 */}
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover-scale">
-              <div className="h-48 bg-gradient-to-r
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg transition-all hover:-translate-y-1">
+              <div className="h-48 bg-gradient-to-r from-azure-500 to-azure-600"></div>
+              <div className="p-6">
+                <div className="text-sm text-muted-foreground mb-2">May 22, 2023</div>
+                <h3 className="text-xl font-bold mb-2">Case Study: How ABC Company Improved Safety Training</h3>
+                <p className="text-muted-foreground mb-4">Discover how a manufacturing company achieved 99% compliance and reduced incidents by 70% using our platform.</p>
+                <Button variant="link" className="px-0 text-azure-500" onClick={() => window.location.href = "/news/2"}>
+                  Read More
+                </Button>
+              </div>
+            </div>
+            
+            {/* News 3 */}
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg transition-all hover:-translate-y-1">
+              <div className="h-48 bg-gradient-to-r from-purple-500 to-purple-600"></div>
+              <div className="p-6">
+                <div className="text-sm text-muted-foreground mb-2">April 10, 2023</div>
+                <h3 className="text-xl font-bold mb-2">Introducing Advanced Fire Simulation Training</h3>
+                <p className="text-muted-foreground mb-4">Our new VR fire simulation modules provide realistic training scenarios without the risks of live fire exercises.</p>
+                <Button variant="link" className="px-0 text-purple-500" onClick={() => window.location.href = "/news/3"}>
+                  Read More
+                </Button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* FAQ Section */}
+      <section 
+        ref={faqRef} 
+        className="py-20 px-4"
+      >
+        <motion.div
+          initial="hidden"
+          animate={faqInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Find answers to common questions about our fire training management platform
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-8">
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <h3 className="text-xl font-bold mb-3">How does the platform ensure regulatory compliance?</h3>
+                <p className="text-muted-foreground">Our platform stays updated with the latest fire safety regulations across different jurisdictions. We automatically track training requirements and certifications to ensure your organization remains compliant.</p>
+              </div>
+              
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <h3 className="text-xl font-bold mb-3">Can I customize training modules for my specific industry?</h3>
+                <p className="text-muted-foreground">Yes, our Business and Enterprise plans allow for customization of training modules to address industry-specific scenarios and requirements. This ensures your team receives relevant training for their work environment.</p>
+              </div>
+              
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <h3 className="text-xl font-bold mb-3">How are training certifications verified?</h3>
+                <p className="text-muted-foreground">Our platform includes built-in assessment tools that verify comprehension and skill acquisition. Upon successful completion, digital certificates are issued and stored securely in the system for easy retrieval during audits.</p>
+              </div>
+            </div>
+            
+            <div className="space-y-8">
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <h3 className="text-xl font-bold mb-3">What kind of reporting capabilities does the platform offer?</h3>
+                <p className="text-muted-foreground">Our comprehensive reporting system provides real-time insights into training completion rates, certification status, and compliance metrics. Custom reports can be generated for specific departments, locations, or time periods.</p>
+              </div>
+              
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <h3 className="text-xl font-bold mb-3">How long does implementation typically take?</h3>
+                <p className="text-muted-foreground">Most organizations can be fully onboarded within 2-4 weeks, depending on the size of your team and complexity of your training requirements. Our implementation specialists work closely with you throughout the process.</p>
+              </div>
+              
+              <div className="rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <h3 className="text-xl font-bold mb-3">Can the platform integrate with our existing HR systems?</h3>
+                <p className="text-muted-foreground">Yes, our platform offers integration capabilities with major HR and learning management systems. The Enterprise plan includes custom API integrations to ensure seamless data flow across your organization's tech ecosystem.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <p className="text-muted-foreground mb-6">Still have questions? We're here to help!</p>
+            <Button className="bg-gradient-fire hover:bg-gradient-fire/90" size="lg" onClick={() => window.location.href = "/contact"}>
+              Contact Support
+            </Button>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* CTA Section */}
+      <section 
+        ref={ctaRef} 
+        className="py-20 px-4 bg-gradient-to-r from-fire-900/30 to-azure-900/30"
+      >
+        <motion.div
+          initial="hidden"
+          animate={ctaInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="max-w-7xl mx-auto text-center"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Transform Your Fire Safety Training?</h2>
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            Join thousands of organizations that trust our platform to keep their teams safe and compliant
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              className="bg-gradient-fire hover:bg-gradient-fire/90"
+              size="lg"
+              onClick={() => window.location.href = "/auth?mode=signup"}
+            >
+              Get Started For Free
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={() => window.location.href = "/demo"}
+            >
+              Request Demo
+            </Button>
+          </div>
+        </motion.div>
+      </section>
+
+      <footer className="py-12 px-4 border-t border-white/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+            <div className="col-span-2">
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold mb-2">FireTrainPro</h2>
+                <p className="text-muted-foreground">Comprehensive fire safety training management for modern organizations</p>
+              </div>
+              <div className="flex space-x-4">
+                <a href="#" className="text-muted-foreground hover:text-white">
+                  <span className="sr-only">Twitter</span>
+                  <div className="w-6 h-6">T</div>
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-white">
+                  <span className="sr-only">LinkedIn</span>
+                  <div className="w-6 h-6">L</div>
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-white">
+                  <span className="sr-only">Facebook</span>
+                  <div className="w-6 h-6">F</div>
+                </a>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-3">Product</h3>
+              <ul className="space-y-2">
+                <li><a href="#features" className="text-muted-foreground hover:text-white">Features</a></li>
+                <li><a href="#pricing" className="text-muted-foreground hover:text-white">Pricing</a></li>
+                <li><a href="/demo" className="text-muted-foreground hover:text-white">Demo</a></li>
+                <li><a href="/docs" className="text-muted-foreground hover:text-white">Documentation</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-3">Company</h3>
+              <ul className="space-y-2">
+                <li><a href="/about" className="text-muted-foreground hover:text-white">About Us</a></li>
+                <li><a href="/careers" className="text-muted-foreground hover:text-white">Careers</a></li>
+                <li><a href="/blog" className="text-muted-foreground hover:text-white">Blog</a></li>
+                <li><a href="/contact" className="text-muted-foreground hover:text-white">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-3">Legal</h3>
+              <ul className="space-y-2">
+                <li><a href="/privacy" className="text-muted-foreground hover:text-white">Privacy Policy</a></li>
+                <li><a href="/terms" className="text-muted-foreground hover:text-white">Terms of Service</a></li>
+                <li><a href="/security" className="text-muted-foreground hover:text-white">Security</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="mt-12 pt-8 border-t border-white/10 text-center text-muted-foreground">
+            <p>© 2023 FireTrainPro. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Landing;

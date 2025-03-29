@@ -32,6 +32,16 @@ export function MainLayout({ children }: MainLayoutProps) {
         )}>
           <div className="h-16 border-b flex items-center px-6">
             <h2 className="text-lg font-semibold">Navigation</h2>
+            {isMobile && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="ml-auto"
+                onClick={toggleSidebar}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
           </div>
           <div className="p-4">
             <SidebarNav />
@@ -39,6 +49,16 @@ export function MainLayout({ children }: MainLayoutProps) {
         </aside>
         
         <main className="flex-1 overflow-y-auto">
+          {isMobile && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="fixed bottom-4 right-4 z-40 rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+              onClick={toggleSidebar}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          )}
           <div className="container py-6">
             {children}
           </div>
