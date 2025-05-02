@@ -31,19 +31,22 @@ export function ModuleCard({ module, className }: ModuleCardProps) {
     first_aid: "First Aid"
   };
 
+  // Use either imageUrl (from front-end) or image_url (from database)
+  const imageUrl = module.imageUrl || module.image_url;
+
   return (
     <Card className={cn("hover-scale overflow-hidden", className)}>
       {!imageError ? (
         <div 
           className="h-40 bg-cover bg-center relative" 
           style={{ 
-            backgroundImage: `url(${module.imageUrl})`,
+            backgroundImage: `url(${imageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center' 
           }}
         >
           <img 
-            src={module.imageUrl} 
+            src={imageUrl} 
             alt={module.title}
             className="hidden"
             onError={() => setImageError(true)}

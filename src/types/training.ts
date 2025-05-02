@@ -6,18 +6,22 @@ export interface TrainingModule {
   title: string;
   description: string;
   duration: number; // minutes
-  imageUrl: string;
+  image_url?: string;
+  imageUrl?: string; // For backwards compatibility with existing code
   level: "beginner" | "intermediate" | "advanced";
   category: "fire_safety" | "emergency_response" | "equipment" | "evacuation" | "first_aid";
+  content?: any;
+  created_at?: string;
+  updated_at?: string;
   roles?: UserRole[];
   progress?: number; // 0-100
   completed?: boolean;
-  content?: any;
 }
 
 export interface Quiz {
   id: string;
-  moduleId: string;
+  module_id: string;
+  moduleId?: string; // For backwards compatibility
   title: string;
   questions: {
     id: string;
@@ -32,11 +36,12 @@ export interface Quiz {
 
 export interface Certificate {
   id: string;
-  userId: string;
-  moduleId: string;
+  user_id: string;
+  module_id: string;
+  moduleId?: string; // For backwards compatibility
   moduleName?: string;
-  issueDate: Date;
-  expirationDate: Date;
+  issue_date: string;
+  expiration_date: string;
   score: number;
   training_modules?: {
     title: string;
@@ -47,10 +52,10 @@ export interface Certificate {
 
 export interface UserProgress {
   id: string;
-  userId: string;
-  moduleId: string;
+  user_id: string;
+  module_id: string;
   progress: number;
   completed: boolean;
-  lastAccessed: Date;
-  training_modules: TrainingModule;
+  last_accessed: string;
+  training_modules?: TrainingModule;
 }

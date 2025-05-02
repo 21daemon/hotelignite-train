@@ -1,6 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { TrainingModule, Quiz, Certificate } from "@/types/training";
+import { TrainingModule, Quiz, Certificate, UserProgress } from "@/types/training";
 
 // Get all training modules
 export async function getTrainingModules() {
@@ -13,7 +13,11 @@ export async function getTrainingModules() {
     throw error;
   }
   
-  return data as TrainingModule[];
+  // Convert snake_case to camelCase for compatibility with existing code
+  return data.map(module => ({
+    ...module,
+    imageUrl: module.image_url
+  })) as TrainingModule[];
 }
 
 // Get a specific training module by ID
@@ -29,7 +33,8 @@ export async function getTrainingModule(id: string) {
     throw error;
   }
   
-  return data as TrainingModule;
+  // Convert snake_case to camelCase for compatibility
+  return { ...data, imageUrl: data.image_url } as TrainingModule;
 }
 
 // Get user progress for modules
@@ -47,7 +52,7 @@ export async function getUserProgress(userId: string) {
     throw error;
   }
   
-  return data;
+  return data as unknown as UserProgress[];
 }
 
 // Update user progress for a module
@@ -159,10 +164,10 @@ export async function importInitialTrainingModules(modules: TrainingModule[]) {
       title: module.title,
       description: module.description,
       duration: module.duration,
-      image_url: module.imageUrl,
+      image_url: module.imageUrl || module.image_url,
       level: module.level,
       category: module.category,
-      content: {}
+      content: module.content || {}
     })));
   
   if (error) {
