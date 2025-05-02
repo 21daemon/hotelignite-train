@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +15,7 @@ import Training from "./pages/Training";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Schedule from "./pages/Schedule";
+import Certifications from "./pages/Certifications";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -104,6 +104,12 @@ const AppRoutes = () => {
       <Route path="/schedule" element={
         <ProtectedRoute>
           <Schedule />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/certifications" element={
+        <ProtectedRoute>
+          <Certifications />
         </ProtectedRoute>
       } />
 

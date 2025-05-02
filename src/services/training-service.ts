@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { TrainingModule, Quiz, Certificate, UserProgress } from "@/types/training";
 
@@ -104,20 +103,97 @@ export async function getModuleQuiz(moduleId: string) {
 
 // Get user certificates
 export async function getUserCertificates(userId: string) {
-  const { data, error } = await (supabase as any)
-    .from('certificates')
-    .select(`
-      *,
-      training_modules(title, category, level)
-    `)
-    .eq('user_id', userId);
-  
-  if (error) {
-    console.error("Error fetching user certificates:", error);
+  try {
+    const { data, error } = await (supabase as any)
+      .from('certificates')
+      .select(`
+        *,
+        training_modules(title, category, level)
+      `)
+      .eq('user_id', userId);
+    
+    if (error) {
+      console.error("Error fetching user certificates:", error);
+      throw error;
+    }
+    
+    // If no certificates found and we're in development, return mock certificates
+    if ((!data || data.length === 0) && import.meta.env.DEV) {
+      return getMockCertificates(userId);
+    }
+    
+    return data as Certificate[];
+  } catch (error) {
+    console.error("Error in getUserCertificates:", error);
+    // In development, return mock data as fallback
+    if (import.meta.env.DEV) {
+      return getMockCertificates(userId);
+    }
     throw error;
   }
+}
+
+// Helper function to get mock certificates for development
+function getMockCertificates(userId: string): Certificate[] {
+  const now = new Date();
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(now.getFullYear() - 1);
   
-  return data as Certificate[];
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(now.getMonth() - 6);
+  
+  const twoMonthsAgo = new Date();
+  twoMonthsAgo.setMonth(now.getMonth() - 2);
+  
+  // One year from now
+  const oneYearFromNow = new Date();
+  oneYearFromNow.setFullYear(now.getFullYear() + 1);
+  
+  // 3 months ago for expiration (expired certificate)
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(now.getMonth() - 3);
+  
+  return [
+    {
+      id: "cert-1",
+      user_id: userId,
+      module_id: "module-1",
+      issue_date: sixMonthsAgo.toISOString(),
+      expiration_date: oneYearFromNow.toISOString(),
+      score: 92,
+      training_modules: {
+        title: "Fire Safety Fundamentals",
+        category: "fire_safety",
+        level: "intermediate"
+      }
+    },
+    {
+      id: "cert-2",
+      user_id: userId,
+      module_id: "module-2",
+      issue_date: twoMonthsAgo.toISOString(),
+      expiration_date: oneYearFromNow.toISOString(),
+      score: 85,
+      training_modules: {
+        title: "Emergency Response Protocol",
+        category: "emergency_response",
+        level: "advanced"
+      }
+    },
+    {
+      id: "cert-3",
+      user_id: userId,
+      module_id: "module-3",
+      issue_date: oneYearAgo.toISOString(),
+      expiration_date: threeMonthsAgo.toISOString(),
+      score: 78,
+      training_modules: {
+        title: "Equipment Handling",
+        category: "equipment",
+        level: "beginner"
+      }
+    }
+  ];
 }
 
 // Create a certificate for a user
