@@ -103,7 +103,8 @@ export const trainingModules: TrainingModule[] = [
 export const quizzes: Quiz[] = [
   {
     id: "q1",
-    moduleId: "1",
+    module_id: "1", // Updated to match our required field
+    moduleId: "1", // Keep for backwards compatibility
     title: "Fire Safety Basics Quiz",
     questions: [
       {

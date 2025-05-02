@@ -4,8 +4,10 @@ import { TrainingModule, Quiz, Certificate, UserProgress } from "@/types/trainin
 
 // Get all training modules
 export async function getTrainingModules() {
-  const { data, error } = await supabase
-    .from('training_modules')
+  // Use the any type temporarily to bypass type checking issues
+  // until Supabase types are updated to include our new tables
+  const { data, error } = await (supabase
+    .from('training_modules') as any)
     .select('*');
   
   if (error) {
@@ -22,8 +24,8 @@ export async function getTrainingModules() {
 
 // Get a specific training module by ID
 export async function getTrainingModule(id: string) {
-  const { data, error } = await supabase
-    .from('training_modules')
+  const { data, error } = await (supabase
+    .from('training_modules') as any)
     .select('*')
     .eq('id', id)
     .single();
@@ -39,8 +41,8 @@ export async function getTrainingModule(id: string) {
 
 // Get user progress for modules
 export async function getUserProgress(userId: string) {
-  const { data, error } = await supabase
-    .from('user_progress')
+  const { data, error } = await (supabase
+    .from('user_progress') as any)
     .select(`
       *,
       training_modules(*)
@@ -57,8 +59,8 @@ export async function getUserProgress(userId: string) {
 
 // Update user progress for a module
 export async function updateUserProgress(userId: string, moduleId: string, progress: number, completed: boolean = false) {
-  const { data, error } = await supabase
-    .from('user_progress')
+  const { data, error } = await (supabase
+    .from('user_progress') as any)
     .upsert(
       { 
         user_id: userId,
@@ -80,8 +82,8 @@ export async function updateUserProgress(userId: string, moduleId: string, progr
 
 // Get quizzes for a specific module
 export async function getModuleQuiz(moduleId: string) {
-  const { data, error } = await supabase
-    .from('quizzes')
+  const { data, error } = await (supabase
+    .from('quizzes') as any)
     .select('*')
     .eq('module_id', moduleId)
     .single();
@@ -100,8 +102,8 @@ export async function getModuleQuiz(moduleId: string) {
 
 // Get user certificates
 export async function getUserCertificates(userId: string) {
-  const { data, error } = await supabase
-    .from('certificates')
+  const { data, error } = await (supabase
+    .from('certificates') as any)
     .select(`
       *,
       training_modules(title, category, level)
@@ -122,8 +124,8 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
   const expirationDate = new Date();
   expirationDate.setFullYear(expirationDate.getFullYear() + 1);
   
-  const { data, error } = await supabase
-    .from('certificates')
+  const { data, error } = await (supabase
+    .from('certificates') as any)
     .upsert({
       user_id: userId,
       module_id: moduleId,
@@ -143,8 +145,8 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
 // Import initial training modules into the database
 export async function importInitialTrainingModules(modules: TrainingModule[]) {
   // Only proceed if we need to (if there are no modules in the DB)
-  const { count, error: countError } = await supabase
-    .from('training_modules')
+  const { count, error: countError } = await (supabase
+    .from('training_modules') as any)
     .select('*', { count: 'exact', head: true });
   
   if (countError) {
@@ -158,8 +160,8 @@ export async function importInitialTrainingModules(modules: TrainingModule[]) {
   }
   
   // Insert modules
-  const { error } = await supabase
-    .from('training_modules')
+  const { error } = await (supabase
+    .from('training_modules') as any)
     .insert(modules.map(module => ({
       title: module.title,
       description: module.description,
