@@ -2,12 +2,14 @@
 import { supabase } from "@/integrations/supabase/client";
 import { TrainingModule, Quiz, Certificate, UserProgress } from "@/types/training";
 
+// Use a more complete type assertion to bypass TypeScript restrictions
+// This is needed because our Supabase schema definition doesn't include our new tables yet
+type SupabaseClient = typeof supabase;
+
 // Get all training modules
 export async function getTrainingModules() {
-  // Use the any type temporarily to bypass type checking issues
-  // until Supabase types are updated to include our new tables
-  const { data, error } = await (supabase
-    .from('training_modules') as any)
+  const { data, error } = await (supabase as any)
+    .from('training_modules')
     .select('*');
   
   if (error) {
@@ -24,8 +26,8 @@ export async function getTrainingModules() {
 
 // Get a specific training module by ID
 export async function getTrainingModule(id: string) {
-  const { data, error } = await (supabase
-    .from('training_modules') as any)
+  const { data, error } = await (supabase as any)
+    .from('training_modules')
     .select('*')
     .eq('id', id)
     .single();
@@ -41,8 +43,8 @@ export async function getTrainingModule(id: string) {
 
 // Get user progress for modules
 export async function getUserProgress(userId: string) {
-  const { data, error } = await (supabase
-    .from('user_progress') as any)
+  const { data, error } = await (supabase as any)
+    .from('user_progress')
     .select(`
       *,
       training_modules(*)
@@ -59,8 +61,8 @@ export async function getUserProgress(userId: string) {
 
 // Update user progress for a module
 export async function updateUserProgress(userId: string, moduleId: string, progress: number, completed: boolean = false) {
-  const { data, error } = await (supabase
-    .from('user_progress') as any)
+  const { data, error } = await (supabase as any)
+    .from('user_progress')
     .upsert(
       { 
         user_id: userId,
@@ -82,8 +84,8 @@ export async function updateUserProgress(userId: string, moduleId: string, progr
 
 // Get quizzes for a specific module
 export async function getModuleQuiz(moduleId: string) {
-  const { data, error } = await (supabase
-    .from('quizzes') as any)
+  const { data, error } = await (supabase as any)
+    .from('quizzes')
     .select('*')
     .eq('module_id', moduleId)
     .single();
@@ -102,8 +104,8 @@ export async function getModuleQuiz(moduleId: string) {
 
 // Get user certificates
 export async function getUserCertificates(userId: string) {
-  const { data, error } = await (supabase
-    .from('certificates') as any)
+  const { data, error } = await (supabase as any)
+    .from('certificates')
     .select(`
       *,
       training_modules(title, category, level)
@@ -124,8 +126,8 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
   const expirationDate = new Date();
   expirationDate.setFullYear(expirationDate.getFullYear() + 1);
   
-  const { data, error } = await (supabase
-    .from('certificates') as any)
+  const { data, error } = await (supabase as any)
+    .from('certificates')
     .upsert({
       user_id: userId,
       module_id: moduleId,
@@ -145,8 +147,8 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
 // Import initial training modules into the database
 export async function importInitialTrainingModules(modules: TrainingModule[]) {
   // Only proceed if we need to (if there are no modules in the DB)
-  const { count, error: countError } = await (supabase
-    .from('training_modules') as any)
+  const { count, error: countError } = await (supabase as any)
+    .from('training_modules')
     .select('*', { count: 'exact', head: true });
   
   if (countError) {
@@ -160,8 +162,8 @@ export async function importInitialTrainingModules(modules: TrainingModule[]) {
   }
   
   // Insert modules
-  const { error } = await (supabase
-    .from('training_modules') as any)
+  const { error } = await (supabase as any)
+    .from('training_modules')
     .insert(modules.map(module => ({
       title: module.title,
       description: module.description,
