@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -28,7 +27,6 @@ export default function Profile() {
     
     setLoading(true);
     try {
-      // This function would be implemented in AuthContext
       await updateProfile({ name });
       
       toast({

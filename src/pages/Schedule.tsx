@@ -23,15 +23,15 @@ export default function Schedule() {
       id: "1",
       title: "Fire Safety Certification",
       date: new Date(2025, 5, 15),
-      status: "scheduled",
-      type: "recertification"
+      status: "scheduled" as const,
+      type: "recertification" as const
     },
     {
       id: "2",
       title: "Emergency Response Training",
       date: new Date(2025, 5, 22),
-      status: "scheduled",
-      type: "initial"
+      status: "scheduled" as const,
+      type: "initial" as const
     }
   ];
   

@@ -17,7 +17,7 @@ import {
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-interface Certification {
+export interface Certification {
   id: string;
   title: string;
   date: Date;
