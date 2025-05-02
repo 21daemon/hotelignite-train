@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { MainLayout } from "@/components/layout/main-layout";
+import { useEffect } from "react";
+import { initializeApp } from "@/services/init-service";
 
 import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
@@ -13,7 +15,14 @@ import Dashboard from "./pages/Dashboard";
 import Training from "./pages/Training";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000, // 1 minute
+      retry: 1,
+    },
+  }
+});
 
 // Protected route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -45,35 +54,54 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const AppRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Landing />} />
-    
-    <Route path="/auth" element={
-      <PublicRoute>
-        <Auth />
-      </PublicRoute>
-    } />
-    
-    <Route path="/dashboard" element={
-      <ProtectedRoute>
-        <MainLayout>
-          <Dashboard />
-        </MainLayout>
-      </ProtectedRoute>
-    } />
-    
-    <Route path="/training" element={
-      <ProtectedRoute>
-        <MainLayout>
-          <Training />
-        </MainLayout>
-      </ProtectedRoute>
-    } />
-    
-    <Route path="*" element={<NotFound />} />
-  </Routes>
-);
+const AppRoutes = () => {
+  const { user } = useAuth();
+  
+  // Initialize app with data if user is logged in
+  useEffect(() => {
+    if (user) {
+      initializeApp().catch(console.error);
+    }
+  }, [user]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      
+      <Route path="/auth" element={
+        <PublicRoute>
+          <Auth />
+        </PublicRoute>
+      } />
+      
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <Dashboard />
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/training" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <Training />
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/training/:id" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <div className="p-6">Module content will be implemented here</div>
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

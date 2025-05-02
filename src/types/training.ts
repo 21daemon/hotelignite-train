@@ -9,9 +9,10 @@ export interface TrainingModule {
   imageUrl: string;
   level: "beginner" | "intermediate" | "advanced";
   category: "fire_safety" | "emergency_response" | "equipment" | "evacuation" | "first_aid";
-  roles: UserRole[];
+  roles?: UserRole[];
   progress?: number; // 0-100
   completed?: boolean;
+  content?: any;
 }
 
 export interface Quiz {
@@ -33,8 +34,23 @@ export interface Certificate {
   id: string;
   userId: string;
   moduleId: string;
-  moduleName: string;
+  moduleName?: string;
   issueDate: Date;
   expirationDate: Date;
   score: number;
+  training_modules?: {
+    title: string;
+    category: string;
+    level: string;
+  }
+}
+
+export interface UserProgress {
+  id: string;
+  userId: string;
+  moduleId: string;
+  progress: number;
+  completed: boolean;
+  lastAccessed: Date;
+  training_modules: TrainingModule;
 }

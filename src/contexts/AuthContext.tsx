@@ -4,6 +4,7 @@ import { User, Session } from '@supabase/supabase-js';
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
+import { signIn, signOut, signUp, getUserProfile } from "@/services/auth-service";
 
 export type UserRole = "admin" | "manager" | "receptionist" | "housekeeping" | "security" | "maintenance" | "food_service";
 
@@ -36,24 +37,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Fetch profile from Supabase
   const fetchProfile = async (userId: string) => {
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
-
-      if (error) {
-        console.error("Error fetching profile:", error);
-        return null;
-      }
-
-      if (data) {
+      const profileData = await getUserProfile(userId);
+      
+      if (profileData) {
         return {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          role: data.role as UserRole,
-          avatarUrl: data.avatar_url
+          id: profileData.id,
+          name: profileData.name,
+          email: profileData.email,
+          role: profileData.role as UserRole,
+          avatarUrl: profileData.avatar_url
         } as UserProfile;
       }
       
@@ -105,11 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      
-      if (error) {
-        throw error;
-      }
+      await signIn(email, password);
       
       toast({
         title: "Login successful",
@@ -130,22 +118,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signup = async (name: string, email: string, password: string, role: UserRole) => {
     try {
       setLoading(true);
-      
-      // Sign up the user
-      const { error, data } = await supabase.auth.signUp({ 
-        email, 
-        password,
-        options: {
-          data: {
-            name,
-            role
-          }
-        }
-      });
-      
-      if (error) {
-        throw error;
-      }
+      await signUp(name, email, password, role);
       
       toast({
         title: "Account created",
@@ -165,7 +138,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
-      await supabase.auth.signOut();
+      await signOut();
       toast({
         title: "Logged out",
         description: "You have been logged out successfully",
