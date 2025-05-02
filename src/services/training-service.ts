@@ -144,6 +144,59 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
   return data;
 }
 
+// Schedule a certification session
+export async function scheduleCertification(userId: string, moduleId: string, date: Date) {
+  const { data, error } = await (supabase as any)
+    .from('certification_schedules')
+    .insert({
+      user_id: userId,
+      module_id: moduleId,
+      scheduled_date: date.toISOString(),
+      status: 'scheduled'
+    });
+  
+  if (error) {
+    console.error("Error scheduling certification:", error);
+    throw error;
+  }
+  
+  return data;
+}
+
+// Get scheduled certifications for a user
+export async function getScheduledCertifications(userId: string) {
+  const { data, error } = await (supabase as any)
+    .from('certification_schedules')
+    .select(`
+      *,
+      training_modules(title, category, level)
+    `)
+    .eq('user_id', userId)
+    .eq('status', 'scheduled');
+  
+  if (error) {
+    console.error("Error fetching scheduled certifications:", error);
+    throw error;
+  }
+  
+  return data;
+}
+
+// Cancel a scheduled certification
+export async function cancelCertification(certificationId: string) {
+  const { data, error } = await (supabase as any)
+    .from('certification_schedules')
+    .update({ status: 'cancelled' })
+    .eq('id', certificationId);
+  
+  if (error) {
+    console.error("Error cancelling certification:", error);
+    throw error;
+  }
+  
+  return data;
+}
+
 // Import initial training modules into the database
 export async function importInitialTrainingModules(modules: TrainingModule[]) {
   // Only proceed if we need to (if there are no modules in the DB)

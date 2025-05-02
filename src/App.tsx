@@ -13,6 +13,9 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Training from "./pages/Training";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Schedule from "./pages/Schedule";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -95,6 +98,24 @@ const AppRoutes = () => {
           <MainLayout>
             <div className="p-6">Module content will be implemented here</div>
           </MainLayout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/schedule" element={
+        <ProtectedRoute>
+          <Schedule />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/settings" element={
+        <ProtectedRoute>
+          <Settings />
         </ProtectedRoute>
       } />
       
