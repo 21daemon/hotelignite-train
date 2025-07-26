@@ -79,22 +79,16 @@ export async function updateUserProgress(userId: string, moduleId: string, progr
 
 // Get quizzes for a specific module
 export async function getModuleQuiz(moduleId: string) {
-  const { data, error } = await supabase
-    .from('quizzes')
-    .select('*')
-    .eq('module_id', moduleId)
-    .single();
+  // Import quizzes from local data
+  const { quizzes } = await import("@/data/training-modules");
   
-  if (error) {
-    if (error.code === 'PGRST116') {
-      // No quiz found
-      return null;
-    }
-    console.error("Error fetching module quiz:", error);
-    throw error;
+  const quiz = quizzes.find(q => q.module_id === moduleId);
+  if (!quiz) {
+    console.log("No quiz found for module:", moduleId);
+    return null;
   }
   
-  return data as unknown as Quiz;
+  return quiz;
 }
 
 // Get user certificates
