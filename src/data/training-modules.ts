@@ -619,9 +619,9 @@ export const trainingModules: TrainingModule[] = [
 
 export const quizzes: Quiz[] = [
   {
-    id: "fs-101-quiz",
-    module_id: "fs-101",
-    moduleId: "fs-101",
+    id: "b3815299-quiz",
+    module_id: "b3815299-c018-4a2e-b2d8-16b61f5271f1", // Fire Safety Fundamentals
+    moduleId: "b3815299-c018-4a2e-b2d8-16b61f5271f1",
     title: "Fire Safety Fundamentals Quiz",
     questions: [
       {
@@ -707,9 +707,9 @@ export const quizzes: Quiz[] = [
     ]
   },
   {
-    id: "er-201-quiz",
-    module_id: "er-201",
-    moduleId: "er-201",
+    id: "66ad63a2-quiz",
+    module_id: "66ad63a2-6a1f-4c95-a82b-93d6a3c902c7", // Emergency Response for Front Desk
+    moduleId: "66ad63a2-6a1f-4c95-a82b-93d6a3c902c7",
     title: "Emergency Response for Front Desk Quiz",
     questions: [
       {
@@ -795,9 +795,9 @@ export const quizzes: Quiz[] = [
     ]
   },
   {
-    id: "kf-301-quiz",
-    module_id: "kf-301",
-    moduleId: "kf-301",
+    id: "7862994d-quiz",
+    module_id: "7862994d-fbfb-4c5e-8fd1-da59edbb1703", // Kitchen Fire Safety
+    moduleId: "7862994d-fbfb-4c5e-8fd1-da59edbb1703",
     title: "Kitchen Fire Safety Quiz",
     questions: [
       {
