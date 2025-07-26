@@ -16,8 +16,7 @@ import {
   Lightbulb,
   FileText
 } from "lucide-react";
-import { trainingModules } from "@/data/training-modules";
-import { updateUserProgress, getUserProgress } from "@/services/training-service";
+import { getTrainingModule, updateUserProgress, getUserProgress } from "@/services/training-service";
 import { TrainingModule } from "@/types/training";
 import { toast } from "@/components/ui/use-toast";
 import { CourseQuiz } from "@/components/training/course-quiz";
@@ -40,8 +39,8 @@ export default function CourseDetail() {
       
       try {
         setLoading(true);
-        const moduleData = trainingModules.find(m => m.id === id);
-        setModule(moduleData || null);
+        const moduleData = await getTrainingModule(id);
+        setModule(moduleData);
         
         // Load user progress
         const userProgress = await getUserProgress(user.id);
