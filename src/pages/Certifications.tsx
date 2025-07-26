@@ -5,7 +5,7 @@ import { MainLayout } from "@/components/layout/main-layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Certificate as FileBadge, Award, FileCheck } from "lucide-react";
+import { Award, FileCheck } from "lucide-react";
 import { getUserCertificates } from "@/services/training-service";
 import { Certificate } from "@/types/training";
 import { format } from "date-fns";
@@ -77,7 +77,7 @@ export default function Certifications() {
                 {filteredCertificates.length === 0 ? (
                   <Card>
                     <CardContent className="py-12 text-center">
-                      <FileBadge className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                      <Award className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                       <p className="text-lg font-medium">No active certifications</p>
                       <p className="text-sm text-muted-foreground mt-1">
                         Complete training modules to earn certifications

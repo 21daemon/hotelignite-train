@@ -1,13 +1,9 @@
 import { supabase } from "@/integrations/supabase/client";
 import { TrainingModule, Quiz, Certificate, UserProgress } from "@/types/training";
 
-// Use a more complete type assertion to bypass TypeScript restrictions
-// This is needed because our Supabase schema definition doesn't include our new tables yet
-type SupabaseClient = typeof supabase;
-
 // Get all training modules
 export async function getTrainingModules() {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('training_modules')
     .select('*');
   
@@ -25,7 +21,7 @@ export async function getTrainingModules() {
 
 // Get a specific training module by ID
 export async function getTrainingModule(id: string) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('training_modules')
     .select('*')
     .eq('id', id)
@@ -42,7 +38,7 @@ export async function getTrainingModule(id: string) {
 
 // Get user progress for modules
 export async function getUserProgress(userId: string) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('user_progress')
     .select(`
       *,
@@ -60,7 +56,7 @@ export async function getUserProgress(userId: string) {
 
 // Update user progress for a module
 export async function updateUserProgress(userId: string, moduleId: string, progress: number, completed: boolean = false) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('user_progress')
     .upsert(
       { 
@@ -83,7 +79,7 @@ export async function updateUserProgress(userId: string, moduleId: string, progr
 
 // Get quizzes for a specific module
 export async function getModuleQuiz(moduleId: string) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('quizzes')
     .select('*')
     .eq('module_id', moduleId)
@@ -98,13 +94,13 @@ export async function getModuleQuiz(moduleId: string) {
     throw error;
   }
   
-  return data as Quiz;
+  return data as unknown as Quiz;
 }
 
 // Get user certificates
 export async function getUserCertificates(userId: string) {
   try {
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
       .from('certificates')
       .select(`
         *,
@@ -202,7 +198,7 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
   const expirationDate = new Date();
   expirationDate.setFullYear(expirationDate.getFullYear() + 1);
   
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('certificates')
     .upsert({
       user_id: userId,
@@ -222,7 +218,7 @@ export async function issueCertificate(userId: string, moduleId: string, score: 
 
 // Schedule a certification session
 export async function scheduleCertification(userId: string, moduleId: string, date: Date) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('certification_schedules')
     .insert({
       user_id: userId,
@@ -241,7 +237,7 @@ export async function scheduleCertification(userId: string, moduleId: string, da
 
 // Get scheduled certifications for a user
 export async function getScheduledCertifications(userId: string) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('certification_schedules')
     .select(`
       *,
@@ -260,7 +256,7 @@ export async function getScheduledCertifications(userId: string) {
 
 // Cancel a scheduled certification
 export async function cancelCertification(certificationId: string) {
-  const { data, error } = await (supabase as any)
+  const { data, error } = await supabase
     .from('certification_schedules')
     .update({ status: 'cancelled' })
     .eq('id', certificationId);
@@ -276,7 +272,7 @@ export async function cancelCertification(certificationId: string) {
 // Import initial training modules into the database
 export async function importInitialTrainingModules(modules: TrainingModule[]) {
   // Only proceed if we need to (if there are no modules in the DB)
-  const { count, error: countError } = await (supabase as any)
+  const { count, error: countError } = await supabase
     .from('training_modules')
     .select('*', { count: 'exact', head: true });
   
@@ -291,7 +287,7 @@ export async function importInitialTrainingModules(modules: TrainingModule[]) {
   }
   
   // Insert modules
-  const { error } = await (supabase as any)
+  const { error } = await supabase
     .from('training_modules')
     .insert(modules.map(module => ({
       title: module.title,
