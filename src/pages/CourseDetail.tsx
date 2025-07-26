@@ -84,9 +84,9 @@ export default function CourseDetail() {
   };
 
   const handleSectionComplete = () => {
-    if (!module?.content?.sections) return;
+    if (!module?.content?.modules) return;
     
-    const totalSections = module.content.sections.length;
+    const totalSections = module.content.modules.length;
     const newProgress = Math.min(((currentSection + 1) / totalSections) * 100, 100);
     updateProgress(newProgress);
     
@@ -143,7 +143,7 @@ export default function CourseDetail() {
     return <CourseQuiz moduleId={module.id} onComplete={handleQuizComplete} />;
   }
 
-  const currentSectionData = module.content?.sections?.[currentSection];
+  const currentSectionData = module.content?.modules?.[currentSection];
 
   return (
     <div className="container py-8 max-w-4xl mx-auto">
@@ -167,7 +167,7 @@ export default function CourseDetail() {
           </div>
           <div className="flex items-center gap-1">
             <BookOpen className="h-4 w-4" />
-            {module.content?.sections?.length || 0} sections
+            {module.content?.modules?.length || 0} modules
           </div>
           <div className="flex items-center gap-1">
             <Target className="h-4 w-4" />
@@ -185,54 +185,28 @@ export default function CourseDetail() {
         <TabsList>
           <TabsTrigger value="content">Course Content</TabsTrigger>
           <TabsTrigger value="objectives">Learning Objectives</TabsTrigger>
-          <TabsTrigger value="resources">Resources</TabsTrigger>
+          <TabsTrigger value="exercises">Practical Exercises</TabsTrigger>
         </TabsList>
 
         <TabsContent value="content" className="space-y-6">
-          {/* Current Section */}
+          {/* Current Module */}
           {currentSectionData && (
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2">
                     <PlayCircle className="h-5 w-5" />
-                    Section {currentSection + 1}: {currentSectionData.title}
+                    Module {currentSection + 1}: {currentSectionData.title}
                   </CardTitle>
                   <Badge variant="outline">
-                    {currentSection + 1} of {module.content?.sections?.length || 0}
+                    {currentSection + 1} of {module.content?.modules?.length || 0}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="prose max-w-none">
-                  {currentSectionData.content?.split('\n').map((paragraph: string, index: number) => (
-                    <p key={index} className="mb-3">{paragraph}</p>
-                  ))}
+                <div className="prose max-w-none dark:prose-invert">
+                  <div dangerouslySetInnerHTML={{ __html: currentSectionData.content }} />
                 </div>
-                
-                {currentSectionData.keyPoints && (
-                  <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
-                    <h4 className="font-semibold flex items-center gap-2 mb-2">
-                      <Lightbulb className="h-4 w-4" />
-                      Key Points
-                    </h4>
-                    <ul className="space-y-1">
-                      {currentSectionData.keyPoints.map((point: string, index: number) => (
-                        <li key={index} className="text-sm">• {point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                
-                {currentSectionData.practicalExercise && (
-                  <div className="bg-green-50 dark:bg-green-950 p-4 rounded-lg">
-                    <h4 className="font-semibold flex items-center gap-2 mb-2">
-                      <Target className="h-4 w-4" />
-                      Practical Exercise
-                    </h4>
-                    <p className="text-sm">{currentSectionData.practicalExercise}</p>
-                  </div>
-                )}
 
                 <div className="flex justify-between pt-4">
                   <Button 
@@ -243,7 +217,7 @@ export default function CourseDetail() {
                     Previous
                   </Button>
                   
-                  {currentSection === (module.content?.sections?.length || 0) - 1 ? (
+                  {currentSection === (module.content?.modules?.length || 0) - 1 ? (
                     <div className="space-x-2">
                       <Button onClick={handleSectionComplete}>
                         <CheckCircle className="h-4 w-4 mr-2" />
@@ -258,7 +232,7 @@ export default function CourseDetail() {
                     </div>
                   ) : (
                     <Button onClick={handleSectionComplete}>
-                      Complete Section
+                      Complete Module
                     </Button>
                   )}
                 </div>
@@ -266,14 +240,14 @@ export default function CourseDetail() {
             </Card>
           )}
 
-          {/* Section Navigation */}
+          {/* Module Navigation */}
           <Card>
             <CardHeader>
-              <CardTitle>Course Sections</CardTitle>
+              <CardTitle>Course Modules</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                {module.content?.sections?.map((section: any, index: number) => (
+                {module.content?.modules?.map((section: any, index: number) => (
                   <div 
                     key={index}
                     className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
@@ -290,9 +264,15 @@ export default function CourseDetail() {
                     }`}>
                       {index < currentSection ? <CheckCircle className="h-3 w-3" /> : index + 1}
                     </div>
-                    <span className={index === currentSection ? "font-medium" : ""}>
-                      {section.title}
-                    </span>
+                    <div className="flex-1">
+                      <span className={index === currentSection ? "font-medium" : ""}>
+                        {section.title}
+                      </span>
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
+                        <Clock className="h-3 w-3" />
+                        {section.duration} min
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -307,7 +287,7 @@ export default function CourseDetail() {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {module.content?.learningObjectives?.map((objective: string, index: number) => (
+                {module.content?.learning_objectives?.map((objective: string, index: number) => (
                   <div key={index} className="flex items-start gap-3">
                     <Target className="h-5 w-5 mt-0.5 text-primary" />
                     <span>{objective}</span>
@@ -318,26 +298,19 @@ export default function CourseDetail() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="resources">
+        <TabsContent value="exercises">
           <Card>
             <CardHeader>
-              <CardTitle>Additional Resources</CardTitle>
+              <CardTitle>Practical Exercises</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {module.content?.resources?.map((resource: any, index: number) => (
+                {module.content?.practical_exercises?.map((exercise: string, index: number) => (
                   <div key={index} className="flex items-start gap-3 p-3 border rounded-lg">
-                    <FileText className="h-5 w-5 mt-0.5" />
+                    <Target className="h-5 w-5 mt-0.5 text-primary" />
                     <div>
-                      <h4 className="font-medium">{resource.title}</h4>
-                      <p className="text-sm text-muted-foreground">{resource.description}</p>
-                      {resource.url && (
-                        <Button variant="link" className="p-0 h-auto mt-1" asChild>
-                          <a href={resource.url} target="_blank" rel="noopener noreferrer">
-                            View Resource →
-                          </a>
-                        </Button>
-                      )}
+                      <h4 className="font-medium">Exercise {index + 1}</h4>
+                      <p className="text-sm text-muted-foreground mt-1">{exercise}</p>
                     </div>
                   </div>
                 ))}
