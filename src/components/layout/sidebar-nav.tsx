@@ -31,7 +31,7 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
     { href: "/training", label: "My Training", icon: GraduationCap },
     { href: "/schedule", label: "Schedule", icon: Calendar },
     { href: "/certifications", label: "Certifications", icon: Award },
-    ...(isManager ? [{ href: "/reports", label: "Reports", icon: BarChart3 }] : []),
+    { href: "/analytics", label: "Analytics", icon: BarChart3 },
     ...(isAdmin ? [{ href: "/users", label: "Users", icon: Users }] : []),
     { href: "/profile", label: "Profile", icon: User },
     { href: "/settings", label: "Settings", icon: Settings },

@@ -17,6 +17,8 @@ import Settings from "./pages/Settings";
 import Schedule from "./pages/Schedule";
 import Certifications from "./pages/Certifications";
 import NotFound from "./pages/NotFound";
+import CourseDetail from "./pages/CourseDetail";
+import Analytics from "./pages/Analytics";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -96,7 +98,15 @@ const AppRoutes = () => {
       <Route path="/training/:id" element={
         <ProtectedRoute>
           <MainLayout>
-            <div className="p-6">Module content will be implemented here</div>
+            <CourseDetail />
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/analytics" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <Analytics />
           </MainLayout>
         </ProtectedRoute>
       } />
