@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_config: {
+        Row: {
+          admin_email: string
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          admin_email: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_email?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       certificates: {
         Row: {
           created_at: string
@@ -249,7 +270,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
