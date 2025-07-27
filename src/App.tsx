@@ -19,6 +19,7 @@ import Certifications from "./pages/Certifications";
 import NotFound from "./pages/NotFound";
 import CourseDetail from "./pages/CourseDetail";
 import Analytics from "./pages/Analytics";
+import AdminPanel from "./pages/AdminPanel";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -107,6 +108,14 @@ const AppRoutes = () => {
         <ProtectedRoute>
           <MainLayout>
             <Analytics />
+          </MainLayout>
+        </ProtectedRoute>
+      } />
+
+      <Route path="/admin" element={
+        <ProtectedRoute>
+          <MainLayout>
+            <AdminPanel />
           </MainLayout>
         </ProtectedRoute>
       } />

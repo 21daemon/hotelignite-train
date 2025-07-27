@@ -11,7 +11,8 @@ import {
   BarChart3, 
   User, 
   Users, 
-  Settings
+  Settings,
+  Shield
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -32,7 +33,10 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
     { href: "/schedule", label: "Schedule", icon: Calendar },
     { href: "/certifications", label: "Certifications", icon: Award },
     { href: "/analytics", label: "Analytics", icon: BarChart3 },
-    ...(isAdmin ? [{ href: "/users", label: "Users", icon: Users }] : []),
+    ...(isAdmin ? [
+      { href: "/admin", label: "Admin Panel", icon: Shield },
+      { href: "/users", label: "Users", icon: Users }
+    ] : []),
     { href: "/profile", label: "Profile", icon: User },
     { href: "/settings", label: "Settings", icon: Settings },
   ];
